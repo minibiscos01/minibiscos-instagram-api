@@ -1,4 +1,9 @@
 export default async function handler(req, res) {
+  // 🔓 Cabeçalhos CORS para permitir chamadas do frontend
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
   const TOKEN = process.env.TOKEN;
   const INSTAGRAM_ID = process.env.INSTAGRAM_ID;
 
@@ -20,6 +25,7 @@ export default async function handler(req, res) {
 
     res.status(200).json(filtered);
   } catch (err) {
+    console.error("Erro ao buscar posts:", err);
     res.status(500).json({ error: 'Erro ao buscar posts do Instagram.' });
   }
 }
